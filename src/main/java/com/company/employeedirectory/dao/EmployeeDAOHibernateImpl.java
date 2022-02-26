@@ -15,8 +15,8 @@ public class EmployeeDAOHibernateImpl implements EmployeeDAO {
     private EntityManager entityManager;
 
     // set up constructor injection
-    public EmployeeDAOHibernateImpl(EntityManager theEntityManager) {
-        entityManager = theEntityManager;
+    public EmployeeDAOHibernateImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
     @Override

@@ -2,6 +2,8 @@ package com.company.employeedirectory.controller;
 
 import com.company.employeedirectory.dao.EmployeeDAO;
 import com.company.employeedirectory.entity.Employee;
+import com.company.employeedirectory.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,16 +14,17 @@ import java.util.List;
 @RequestMapping("/api")
 public class EmployeeController {
 
-    private EmployeeDAO employeeDAO;
+    private EmployeeService employeeService;
 
     // inject employee dao (use constructor injection)
-    public EmployeeController(EmployeeDAO theEmployeeDAO) {
-        employeeDAO =  theEmployeeDAO;
+//    @Autowired
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     // return list of employees
     @GetMapping("/employees")
     public List<Employee> findAll() {
-        return employeeDAO.findAll();
+        return employeeService.findAll();
     }
 }
