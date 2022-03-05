@@ -2,7 +2,7 @@ package com.company.employeedirectory.controller;
 
 import com.company.employeedirectory.entity.Employee;
 import com.company.employeedirectory.service.EmployeeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,10 +11,9 @@ import java.util.List;
 @RequestMapping("/api")
 public class EmployeeController {
 
-    private EmployeeService employeeService;
+    private final EmployeeService employeeService;
 
-    // inject employee dao (use constructor injection)
-//    @Autowired
+
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
@@ -37,6 +36,7 @@ public class EmployeeController {
 
     // mapping for POST /employees - add new employee
     @PostMapping("/employees")
+    @ResponseStatus(HttpStatus.CREATED)
     public Employee addEmployee(@RequestBody Employee employee) {
         employeeService.save(employee);
         return employee;
@@ -51,6 +51,7 @@ public class EmployeeController {
 
     // mapping for DELETE /employees/{employeeId} - delete existing employee
     @DeleteMapping("/employees/{employeeId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public String deleteEmployee(@PathVariable Long employeeId) {
         Employee tempEmployee = employeeService.findById(employeeId);
 

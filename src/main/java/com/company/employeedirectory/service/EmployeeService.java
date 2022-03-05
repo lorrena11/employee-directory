@@ -1,16 +1,46 @@
 package com.company.employeedirectory.service;
 
 import com.company.employeedirectory.entity.Employee;
+import com.company.employeedirectory.repository.EmployeeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 
 import java.util.List;
+import java.util.Optional;
 
-public interface EmployeeService {
+@Service
+public class EmployeeService {
+    private final EmployeeRepository employeeRepository;
 
-    public List<Employee> findAll();
+    public EmployeeService(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
 
-    public Employee findById(Long id);
 
-    public void save(Employee employee);
+    public List<Employee> findAll() {
+        return employeeRepository.findAll();
+    }
 
-    public void deleteById(Long id);
+
+    public Employee findById(Long id) {
+        Optional<Employee> result = employeeRepository.findById(id);
+        Employee employee = null;
+        if (result.isPresent()) {
+            return result.get();
+        }
+        else {
+            throw new RuntimeException("Did not find employee id - " + id);
+        }
+    }
+
+
+    public void save(Employee employee) {
+        employeeRepository.save(employee);
+    }
+
+
+    public void deleteById(Long id) {
+        employeeRepository.deleteById(id);
+    }
 }
