@@ -21,8 +21,8 @@ public class EmployeeController {
 
     // return list of employees
     @GetMapping("/employees")
-    public List<Employee> findAll() {
-        return employeeService.findAll();
+    public List<Employee> findAll(@RequestParam(required = false, value = "name") String firstName) {
+        return employeeService.findAll(firstName);
     }
 
     // mapping for GET /employees/{employeeId}

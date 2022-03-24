@@ -18,8 +18,10 @@ public class EmployeeService {
     }
 
 
-    public List<Employee> findAll() {
-        return employeeRepository.findAll();
+    public List<Employee> findAll(String firstName) {
+        if (firstName != null) {
+            return employeeRepository.findAllByFirstName(firstName);
+        } else return employeeRepository.findAll();
     }
 
 
@@ -28,8 +30,7 @@ public class EmployeeService {
         Employee employee = null;
         if (result.isPresent()) {
             return result.get();
-        }
-        else {
+        } else {
             throw new RuntimeException("Did not find employee id - " + id);
         }
     }
