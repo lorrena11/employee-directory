@@ -1,5 +1,6 @@
 package com.company.employeedirectory.controller;
 
+import com.company.employeedirectory.dto.EmployeeDTO;
 import com.company.employeedirectory.entity.Employee;
 import com.company.employeedirectory.service.EmployeeService;
 import org.springframework.http.HttpStatus;
@@ -26,12 +27,12 @@ public class EmployeeController {
 
     // mapping for GET /employees/{employeeId}
     @GetMapping("/employees/{employeeId}")
-    public Employee getEmployee(@PathVariable Long employeeId) {
+    public EmployeeDTO getEmployee(@PathVariable Long employeeId) {
         Employee employee = employeeService.findById(employeeId);
         if (employee == null) {
             throw new RuntimeException("Employee id not found - " + employeeId);
         }
-        return employee;
+        return new EmployeeDTO(employee);
     }
 
     // mapping for POST /employees - add new employee
